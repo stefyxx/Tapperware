@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -33,9 +35,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $Telephone;
 
-    //per default ho messo true-> quando t'inserisci, sei attivo
-    #[ORM\Column(type: 'boolean', default:'true')]
+    //per default ho messo true-> quando t'inserisci, sei attivo default:true-> mi da errore , lo faro' nel controller
+    #[ORM\Column(type: 'boolean')]
     private $isActive;
+
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Restaurant::class)]
+    private $restaurants;
+    //per avere subito la lista dei Resto x utente, li inserisco nel costruttore
+
+    public function __construct(array $init=[])
+    {
+        $this->hydrate($init);
+        $this->restaurants = new ArrayCollection();
+    }
+
+    public function hydrate(array $vals){
+        foreach ($vals as $key => $value) {
+            $metodo="set".ucfirst($key); //ricerca Resto x id?
+            //per avere setNom() di Resto
+
+            if(method_exists($this,$metodo)){
+                $this->$metodo ($value);
+            }   
+        }
+    }
 
     public function getId(): ?int
     {
@@ -154,6 +177,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->isActive = $isActive;
 
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Restaurant>
+     */
+    public function getRestaurants(): Collection
+    {
+        return $this->restaurants;
+    }
+
+    public function addRestaurant(Restaurant $restaurant): self
+    {
+        if (!$this->restaurants->contains($restaurant)) {
+            $this->restaurants[] = $restaurant;
+            $restaurant->setUser($this);
+        }
+        return $this;
+    }
+
+    public function removeRestaurant(Restaurant $restaurant): self
+    {
+        if ($this->restaurants->removeElement($restaurant)) {
+            // set the owning side to null (unless already changed)
+            if ($restaurant->getUser() === $this) {
+                $restaurant->setUser(null);
+            }
+        }
         return $this;
     }
 }
