@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
+use App\Entity\PrototypeProduit;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends AbstractController
 {
@@ -31,20 +34,34 @@ class HomeController extends AbstractController
     }
 
     
-    // SELECT: findAll (chercher par un ou plusieurs champs, filtre array)
     #[Route("home/liste")]
-    public function exempleFindAll(ManagerRegistry $doctrine)
+    public function listeFindAll(ManagerRegistry $doctrine) :Response
     {
         $em = $doctrine->getManager();
-
-        $rep = $em->getRepository(Produit::class);
-
+        $repo = $em->getRepository(PrototypeProduit::class);
+        //services
+        $repoCat = $em->getRepository(Category::class);
+        
+        $produits = $repo->findAll();
+        $allCategory=$repoCat->findAll();
+        
         // notez que findBy renverra toujours un array même s'il trouve qu'un objet
-        $produits = $rep->findAll();
 
-        $vars = ['produits' => $produits];
+        $vars = ['produits' => $produits,
+                    'categories'=> $allCategory];
 
         return $this->render("home/liste.html.twig", $vars);
+    }
+
+    #[Route("home/deatil/{id}", name:"home/deatil/{id}")]
+    public function detailsProduit(ManagerRegistry $m){
+        $em= $m->getManager();
+        $repo= $em->getRepository(PrototypeProduit::class);
+
+        $prototipe = $repo->find(1);
+        return $this->render("home/details.html.twig",[
+            'prodotto'=>$prototipe
+        ]);
     }
 
 

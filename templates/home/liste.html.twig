@@ -1,20 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-Products
-<br>
-{# {{ dump (produits) }} #}
-{% for produit in produits %}
+    Products
     <br>
-    {{ produit.titre }},
-    {{ produit.reference }},  
-    <img src="{{ asset ('./assets/images/' ~ produit.photo) }}">   
-    {{ produit.description }},      
-    {{ produit.prix}},
-    {{ produit.odeur}},
-    {{ produit.couleur}},
-    <br>
-    {# {{ produit.description | default ("pas de description")}}
-    <br><br> #}
-{% endfor %}
+    {# {{ dump (produits) }} ->tab inviata a View #}
+    {% for prototype in produits %}
+        <br>
+        {{ prototype.NomProduit }},
+        {{ prototype.PrixLocationUnitaire }},  
+        <img src="{{ asset ('./assets/images/' ~ prototype.Image) }}" width="100px">   
+        {{ prototype.Description}},      
+        {{ prototype.TailleCapacite}},
+        {{ prototype.PrixLocationUnitaire}},
+        {{ prototype.Stock}},
+        {{prototype.Category.Label}}
+        {#<a href="{{ path('home/deatil/{id}', {'id': prototype_produit.id}) }}">show</a>#}
+    {% endfor %}
+    <br><br>
+        <select >
+            <option >Scelta per categoria</option>   
+            {% for category in categories %}
+                <option >{{category.Label}}</option>
+            {% endfor %}
+        </select>
+    {# {{ produit.description | default ("pas de description")}}#}
 {% endblock %}

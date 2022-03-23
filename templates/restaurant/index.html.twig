@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Restaurant index{% endblock %}
+
+{% block body %}
+    <h1>Restaurant index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Image</th>
+                <th>Ville</th>
+                <th>Rue</th>
+                <th>Numero</th>
+                <th>Zip</th>
+                <th>Numero_TVA</th>
+                <th>Site_Web</th>
+                <th>IsActive</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for restaurant in restaurants %}
+            <tr>
+                <td>{{ restaurant.id }}</td>
+                <td>{{ restaurant.Nom }}</td>
+                <td><img src="{{asset('assets/images/'~restaurant.Image }}" width="100px" /></td>
+                <td>{{ restaurant.Ville }}</td>
+                <td>{{ restaurant.Rue }}</td>
+                <td>{{ restaurant.Numero }}</td>
+                <td>{{ restaurant.Zip }}</td>
+                <td>{{ restaurant.NumeroTVA }}</td>
+                <td>{{ restaurant.SiteWeb }}</td>
+                <td>{{ restaurant.isActive ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_restaurant_show', {'id': restaurant.id}) }}">show</a>
+                    <a href="{{ path('app_restaurant_edit', {'id': restaurant.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_restaurant_new') }}">Create new</a>
+{% endblock %}

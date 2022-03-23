@@ -33,6 +33,8 @@ class PrototypeProduit
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'prototypeProduits')]
     private $Category;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $Image;
     //forse non serve
     #[ORM\OneToMany(mappedBy: 'PrototypeProduit', targetEntity: DetailProduitLocation::class)]
     private $detailProduitLocations;
@@ -40,8 +42,6 @@ class PrototypeProduit
     #[ORM\OneToMany(mappedBy: 'PrototypeProduit', targetEntity: DetailProduitRetour::class)]
     private $detailProduitRetours;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $Image;
 
     public function __construct()
     {

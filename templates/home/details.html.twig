@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	{{ prodotto.NomProduit }},
+	{{ prodotto.PrixLocationUnitaire }},
+	<img src="{{ asset ('./assets/images/' ~ prodotto.Image) }}" width="100px">
+	{{ prodotto.Description}},
+	{{ prodotto.TailleCapacite}},
+	{{ prodotto.PrixLocationUnitaire}},
+	{{ prodotto.Stock}},
+	{{ prodotto.Category.Label}}
+{% endblock %}
