@@ -16,8 +16,11 @@ class RestaurantController extends AbstractController
     #[Route('/', name: 'app_restaurant_index', methods: ['GET'])]
     public function index(RestaurantRepository $restaurantRepository): Response
     {
+        //visualizzo solo i Resto 'attivi', perché non li cancello da DB, li rendo solo inattivi
+        $listarResto = $restaurantRepository->findBy(['isActive'=> true]);
+
         return $this->render('restaurant/index.html.twig', [
-            'restaurants' => $restaurantRepository->findAll(),
+            'restaurants' => $listarResto,
         ]);
     }
 
@@ -68,7 +71,9 @@ class RestaurantController extends AbstractController
     public function delete(Request $request, Restaurant $restaurant, RestaurantRepository $restaurantRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$restaurant->getId(), $request->request->get('_token'))) {
-            $restaurantRepository->remove($restaurant);
+            $restaurant->setIsActive(false);
+            //$restaurantRepository->remove($restaurant);
+            $restaurantRepository->add($restaurant);
         }
 
         return $this->redirectToRoute('app_restaurant_index', [], Response::HTTP_SEE_OTHER);

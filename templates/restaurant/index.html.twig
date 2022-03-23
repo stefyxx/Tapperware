@@ -17,6 +17,7 @@
                 <th>Zip</th>
                 <th>Numero_TVA</th>
                 <th>Site_Web</th>
+                <th>nome proprietario</th>
                 <th>IsActive</th>
                 <th>actions</th>
             </tr>
@@ -26,17 +27,19 @@
             <tr>
                 <td>{{ restaurant.id }}</td>
                 <td>{{ restaurant.Nom }}</td>
-                <td><img src="{{asset('assets/images/'~restaurant.Image }}" width="100px" /></td>
+                <td><img src="{{asset('assets/images/'~ restaurant.Image )}}" width="100px" /></td>
                 <td>{{ restaurant.Ville }}</td>
                 <td>{{ restaurant.Rue }}</td>
                 <td>{{ restaurant.Numero }}</td>
                 <td>{{ restaurant.Zip }}</td>
                 <td>{{ restaurant.NumeroTVA }}</td>
                 <td>{{ restaurant.SiteWeb }}</td>
+                <td>{{ restaurant.User.Nom }}</td>
                 <td>{{ restaurant.isActive ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ path('app_restaurant_show', {'id': restaurant.id}) }}">show</a>
                     <a href="{{ path('app_restaurant_edit', {'id': restaurant.id}) }}">edit</a>
+                    <a href="{{ path('app_restaurant_delete', {'id': restaurant.id}) }}">delete</a>
                 </td>
             </tr>
         {% else %}
