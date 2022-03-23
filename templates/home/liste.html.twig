@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+Products
+<br>
+{# {{ dump (produits) }} #}
+{% for produit in produits %}
+    <br>
+    {{ produit.titre }},
+    {{ produit.reference }},  
+    <img src="{{ asset ('./assets/images/' ~ produit.photo) }}">   
+    {{ produit.description }},      
+    {{ produit.prix}},
+    {{ produit.odeur}},
+    {{ produit.couleur}},
+    <br>
+    {# {{ produit.description | default ("pas de description")}}
+    <br><br> #}
+{% endfor %}
+{% endblock %}
