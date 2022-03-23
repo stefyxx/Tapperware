@@ -10,7 +10,8 @@
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        {# app.user.email o app.user.nom -> dipende da quello che vuoi visualizzare#}
+            You are logged in as {{ app.user.nom }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
 
@@ -21,7 +22,7 @@
     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
     <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
+        value="{{ csrf_token('authenticate') }}"
     >
 
     {#

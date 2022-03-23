@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PrototypeProduit{% endblock %}
+
+{% block body %}
+    <h1>PrototypeProduit</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ prototype_produit.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom_produit</th>
+                <td>{{ prototype_produit.NomProduit }}</td>
+            </tr>
+            <tr>
+                <th>PrixLocationUnitaire</th>
+                <td>{{ prototype_produit.PrixLocationUnitaire }}</td>
+            </tr>
+            <tr>
+                <th>Taille_Capacite</th>
+                <td>{{ prototype_produit.TailleCapacite }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ prototype_produit.Description }}</td>
+            </tr>
+            <tr>
+                <th>Stock</th>
+                <td>{{ prototype_produit.Stock }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td><img src="{{asset('assets/images/'~ prototype_produit.Image)}}" width="150px"/></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_produit_index') }}">back to list</a>
+
+    <a href="{{ path('app_produit_edit', {'id': prototype_produit.id}) }}">edit</a>
+
+    {{ include('produit/_delete_form.html.twig') }}
+{% endblock %}
