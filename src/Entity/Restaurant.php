@@ -169,7 +169,7 @@ class Restaurant
     /**
      * @return Collection<int, Panier>
      */
-    public function getPaniers(): Collection
+    public function getPaniers(): ?Collection
     {
         return $this->paniers;
     }
