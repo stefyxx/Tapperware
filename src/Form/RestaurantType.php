@@ -23,11 +23,13 @@ class RestaurantType extends AbstractType
             ->add('Site_Web')
             ->add('isActive')
             ->add('Image')
-            ->add('User', EntityType::class,
+            //User lo aggungo al controller
+            /*->add('User', EntityType::class,
             [
                 'class' => User::class,
                 'choice_label' => 'Nom'
-            ])
+            ])*/
+
         ;
     }
 

@@ -9,6 +9,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+    //symfony console cache:clear --env dev
+
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -24,11 +26,17 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
-    //lo faccio in HomeController perché qui' il return é VOID
+    //lo faccio in HomeController
     #[Route(path: '/logout', name: 'app_logout')]
-    public function logout()
+    public function logout():Response
     {
         //throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
-        return $this->render(('home/liste.html.twig'));
+        //return $this->redirectToRoute('path di route');
+
+        //return $this->redirectToRoute('/produit/');
+        
+        return $this->redirectToRoute('/home/liste');
+        //return $this->render(('home/liste.html.twig'));
+        
     }
 }

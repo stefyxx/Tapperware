@@ -4,10 +4,26 @@
 
 {% block body %}
     <h1>Edit Restaurant</h1>
-
+    {# se sei l'User loggato ora (last-loggato), puoi Update il tuo Resto#}
+    {% if (app.user.id == restaurant.User.id) %}
     {{ include('restaurant/_form.html.twig', {'button_label': 'Update'}) }}
+    {% endif %}
+
+    {# se sei Admin, puoi Update un Resto#}
+    {% for role in app.user.getRoles() %}
+    {% if (role == 'ROLE_ADMIN') %}
+    {{ include('restaurant/_form.html.twig', {'button_label': 'Update'}) }}
+    {% endif %}    
+    {% endfor %} 
+
+
 
     <a href="{{ path('app_restaurant_index') }}">back to list</a>
 
     {{ include('restaurant/_delete_form.html.twig') }}
+
+    {#{{ dump (app.user)}}#}
+    {#{{ dump (restaurant)}}#}
+    {#{{ dump (restaurant.User.id)}}#}
+    {#{{ dump (app.user.getRoles())}}#}
 {% endblock %}

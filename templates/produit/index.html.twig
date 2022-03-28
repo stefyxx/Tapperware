@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}PrototypeProduit index{% endblock %}
+{% block title %}Produit index lista:{% endblock %}
 
 {% block body %}
-    <h1>PrototypeProduit index</h1>
+    <h1>Produit index lista</h1>
 
     <table class="table">
         <thead>
@@ -31,9 +31,9 @@
                 <td><img src="{{asset('assets/images/'~ prototype_produit.Image)}}" width="100px"/></td>
 
                 <td>
-                    <a href="{{ path('app_produit_show', {'id': prototype_produit.id}) }}">show</a>
                     <a href="{{ path('app_produit_edit', {'id': prototype_produit.id}) }}">edit</a>
                     <a href="{{ path('app_produit_delete', {'id': prototype_produit.id}) }}">delete</a>
+                    <a href="{{ path('app_produit_show', {'id': prototype_produit.id}) }}">show</a>
                 </td>
             </tr>
         {% else %}

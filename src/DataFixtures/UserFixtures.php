@@ -25,9 +25,9 @@ class UserFixtures extends Fixture
         $user = new User();
         $user->setNom('Admin');
         $user->setPrenom('Admin');
-        $user->setEmail($faker->email());
+        $user->setEmail('admin@admin.com');
         $user->setRoles(['ROLE_ADMIN']);
-        $user->setPassword($this->passwordHasher->hashPassword($user, 'mdp0'));
+        $user->setPassword($this->passwordHasher->hashPassword($user, 'pass0'));
         $user->setTelephone($faker->phoneNumber());
         $user->setIsActive(true);
         $m->persist($user);
@@ -36,9 +36,9 @@ class UserFixtures extends Fixture
             $user = new User();
             $user->setNom($faker->lastName());
             $user->setPrenom($faker->firstName());
-            $user->setEmail($faker->email());
+            $user->setEmail('user'.$i.'@user.com');
             //$user->setRoles(['ROLE_ENTRAINEUR', 'ROLE_ADMIN', 'ROLE_WEBDEV']);
-            $user->setPassword($this->passwordHasher->hashPassword($user, 'mdp' . $i));
+            $user->setPassword($this->passwordHasher->hashPassword($user, 'pass' . $i));
             $user->setTelephone($faker->phoneNumber());
             $user->setIsActive(true);
             $m->persist($user);

@@ -34,7 +34,7 @@ class HomeController extends AbstractController
     }
 
     
-    #[Route("home/liste")]
+    #[Route("/home/liste", name:'lista')]
     public function listeFindAll(ManagerRegistry $doctrine) :Response
     {
         $em = $doctrine->getManager();

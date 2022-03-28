@@ -27,7 +27,12 @@ class RestaurantController extends AbstractController
     #[Route('/new', name: 'app_restaurant_new', methods: ['GET', 'POST'])]
     public function new(Request $request, RestaurantRepository $restaurantRepository): Response
     {
+        if (!$this->getUser()){
+            return $this->redirectToRoute('app_login');
+        }
+
         $restaurant = new Restaurant();
+        $restaurant->setUser($this->getUser());
         $form = $this->createForm(RestaurantType::class, $restaurant);
         $form->handleRequest($request);
 
@@ -53,6 +58,13 @@ class RestaurantController extends AbstractController
     #[Route('/{id}/edit', name: 'app_restaurant_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Restaurant $restaurant, RestaurantRepository $restaurantRepository): Response
     {
+        if (!$this->getUser()){
+            return $this->redirectToRoute('app_login');
+        }
+        
+        //$restaurant->setUser($this->getUser());   //no, perché se clicco su un resto che non é mio, me lo fa diventare mio
+        //e se clicco su un Resto che non é mio?
+
         $form = $this->createForm(RestaurantType::class, $restaurant);
         $form->handleRequest($request);
 
@@ -66,10 +78,14 @@ class RestaurantController extends AbstractController
             'form' => $form,
         ]);
     }
-
+    //delete visualizza una parzial View, se faccio 'submit, rientro in questa action
     #[Route('/{id}', name: 'app_restaurant_delete', methods: ['POST'])]
     public function delete(Request $request, Restaurant $restaurant, RestaurantRepository $restaurantRepository): Response
     {
+        if (!$this->getUser()){
+            return $this->redirectToRoute('app_login');
+        }
+
         if ($this->isCsrfTokenValid('delete'.$restaurant->getId(), $request->request->get('_token'))) {
             $restaurant->setIsActive(false);
             //$restaurantRepository->remove($restaurant);

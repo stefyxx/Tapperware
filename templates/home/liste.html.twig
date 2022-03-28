@@ -24,4 +24,15 @@
             {% endfor %}
         </select>
     {# {{ produit.description | default ("pas de description")}}#}
+        {% if app.user %}
+        <div class="mb-3">
+        {# app.user.email o app.user.nom -> dipende da quello che vuoi visualizzare#}
+            You are logged in as {{ app.user.nom }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+        <div class="mb-3">
+        {# app.user.email o app.user.nom -> dipende da quello che vuoi visualizzare#}
+            <a href="{{ path('app_restaurant_new') }}">Aggiungi un tuo Resto</a>
+        </div>
+
+    {% endif %}
 {% endblock %}
