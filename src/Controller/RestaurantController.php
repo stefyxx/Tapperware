@@ -19,7 +19,8 @@ class RestaurantController extends AbstractController
     public function index(RestaurantRepository $restaurantRepository): Response
     {
         //visualizzo solo i Resto 'attivi', perché non li cancello da DB, li rendo solo inattivi
-        $listarResto = $restaurantRepository->findBy(['isActive'=> true]);
+        $listarResto = $restaurantRepository->findBy(['isActive'=> true]); 
+       //$listarResto = $restaurantRepository->findBy(['User'=> $this->getUser()]); 
 
         return $this->render('restaurant/index.html.twig', [
             'restaurants' => $listarResto,
