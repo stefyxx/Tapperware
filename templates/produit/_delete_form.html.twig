@@ -1,4 +1,12 @@
 <form method="post" action="{{ path('app_produit_delete', {'id': prototype_produit.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    {% if is_granted('ROLE_ADMIN') %}
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ prototype_produit.id) }}">
     <button class="btn">Delete</button>
+    {% endif %}
+    {% if app.user %}
+        <div class="mb-3">
+        {# app.user.email o app.user.nom -> dipende da quello che vuoi visualizzare#}
+            You are logged in as {{ app.user.nom }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
 </form>

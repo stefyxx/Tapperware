@@ -28,6 +28,12 @@ security:
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
+            
+            #accesso negato gestito da:
+            access_denied_handler: App\Security\GestionnaireErreurAcces
+
+            #access_control:
+            #- { path: ^/gestion, roles: [ROLE_ADMIN] }
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true

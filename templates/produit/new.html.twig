@@ -4,8 +4,16 @@
 
 {% block body %}
     <h1>Create new PrototypeProduit</h1>
-
+    
+    {% if is_granted('ROLE_ADMIN') %}
     {{ include('produit/_form.html.twig') }}
+    {% endif %}
 
     <a href="{{ path('app_produit_index') }}">back to list</a>
+    {% if app.user %}
+        <div class="mb-3">
+        {# app.user.email o app.user.nom -> dipende da quello che vuoi visualizzare#}
+            You are logged in as {{ app.user.nom }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
 {% endblock %}

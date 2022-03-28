@@ -33,9 +33,9 @@ class SecurityController extends AbstractController
         //throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
         //return $this->redirectToRoute('path di route');
 
-        //return $this->redirectToRoute('/produit/');
+        return $this->redirectToRoute('/produit');
         
-        return $this->redirectToRoute('/home/liste');
+        //return $this->redirectToRoute('/home/liste');
         //return $this->render(('home/liste.html.twig'));
         
     }

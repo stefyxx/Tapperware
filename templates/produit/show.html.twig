@@ -4,7 +4,21 @@
 
 {% block body %}
     <h1>PrototypeProduit</h1>
+    
+    {% if app.user %}
+        <div class="mb-3">
+        {# app.user.email o app.user.nom -> dipende da quello che vuoi visualizzare#}
+            You are logged in as {{ app.user.nom }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+        {#<a href="{{ path('app_panier_new') }}"> ???Aggiungi al paniere</a>#}
+    {% endif %}
 
+    {% if  app.user == null %}
+        <div class="mb-3">
+            <a href="{{ path('app_login') }}">Login for buy!</a>
+        </div>
+    {% endif %}
+    {#{{dump(app.user)}}#}
     <table class="table">
         <tbody>
             <tr>
@@ -38,9 +52,12 @@
         </tbody>
     </table>
 
+    
     <a href="{{ path('app_produit_index') }}">back to list</a>
-
+    {# se sei Admin, puoi Update/delete un prodotto#}
+    {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('app_produit_edit', {'id': prototype_produit.id}) }}">edit</a>
-
     {{ include('produit/_delete_form.html.twig') }}
+    {% endif %}    
+
 {% endblock %}

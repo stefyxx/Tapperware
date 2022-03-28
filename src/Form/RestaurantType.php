@@ -23,7 +23,7 @@ class RestaurantType extends AbstractType
             ->add('Site_Web')
             ->add('isActive')
             ->add('Image')
-            //User lo aggungo al controller
+            //User lo aggungo nel controller
             /*->add('User', EntityType::class,
             [
                 'class' => User::class,

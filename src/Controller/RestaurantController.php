@@ -13,6 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/restaurant')]
 class RestaurantController extends AbstractController
 {
+    //url: /restaurant e tutti gli altri url delle altre azioni iniziano cosi' /restaurant
+    
     #[Route('/', name: 'app_restaurant_index', methods: ['GET'])]
     public function index(RestaurantRepository $restaurantRepository): Response
     {
@@ -27,6 +29,7 @@ class RestaurantController extends AbstractController
     #[Route('/new', name: 'app_restaurant_new', methods: ['GET', 'POST'])]
     public function new(Request $request, RestaurantRepository $restaurantRepository): Response
     {
+        //$this->getUser()->is_null;
         if (!$this->getUser()){
             return $this->redirectToRoute('app_login');
         }
