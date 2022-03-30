@@ -1,35 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Panier index{% endblock %}
+{% block title %}Hello CartController!
+{% endblock %}
 
 {% block body %}
-    <h1>Panier index</h1>
+	<div class="bg-light p-3">
+		<h1>Votre panier</h1>
+	</div>
+	{#{% if items.length >0 %}#}
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Prodotto</th>
+				<th>prezzo</th>
+				<th>quantità</th>
+				<th>Totale</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for prodotto in items %}
+				<tr>
+					<td>{{ prodotto.product.NomProduit }}</td>
+					<td>{{ prodotto.product.PrixLocationUnitaire }} €</td>
+					<td>{{ prodotto.quantity }}</td>
+					<td>{{  prodotto.product.PrixLocationUnitaire * prodotto.quantity }}
+					</td>
+					<td>
+						<a href="{{ path('produit_remove', {'id': prodotto.product.id})}}">
+							<i class="fas fa-trash"></i>cancella 10 articoli</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date_paiment</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for panier in paniers %}
-            <tr>
-                <td>{{ panier.id }}</td>
-                <td>{{ panier.DatePaiment ? panier.DatePaiment|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_panier_show', {'id': panier.id}) }}">show</a>
-                    <a href="{{ path('app_panier_edit', {'id': panier.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+		<tfoot>
+			<tr>
+				<td>Totale:</td>
+				<td>{{ totale }} €</td>
+				<td></td>
+			</tr>
+		</tfoot>
 
-    <a href="{{ path('app_panier_new') }}">Create new</a>
+	</table>
+
+{#{% else %}
+	<p>Surprise, c'est vide !</p>
+{% endif %}#}
+
 {% endblock %}

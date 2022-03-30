@@ -37,7 +37,7 @@ class UserFixtures extends Fixture
             $user->setNom($faker->lastName());
             $user->setPrenom($faker->firstName());
             $user->setEmail('user'.$i.'@user.com');
-            //$user->setRoles(['ROLE_ENTRAINEUR', 'ROLE_ADMIN', 'ROLE_WEBDEV']);
+            //$user->setRoles(['ROLE_CLIENT', 'ROLE_MANAGER']);
             $user->setPassword($this->passwordHasher->hashPassword($user, 'pass' . $i));
             $user->setTelephone($faker->phoneNumber());
             $user->setIsActive(true);

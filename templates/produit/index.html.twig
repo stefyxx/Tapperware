@@ -13,7 +13,7 @@
 			You are logged in as
 			{{ app.user.nom }},
 			<a href="{{ path('app_logout') }}">Logout</a>
-		</div>
+		</div><br>
 	{% endif %}
 
 	<table class="table">
@@ -39,12 +39,18 @@
 					<td>{{ prototype_produit.Description }}</td>
 					<td>{{ prototype_produit.Stock }}</td>
 
-					<td><img src="{{asset('assets/images/'~ prototype_produit.Image)}}" width="100px"/></td>
+					<td>
+					{#<img src="{{asset('assets/images/'~ prototype_produit.Image)}}" width="100px"/>#}
+					</td>
+					
 
 					<td>
 						<a href="{{ path('app_produit_show', {'id': prototype_produit.id}) }}">show</a>
 						
 						{% if app.user %}
+						 <a href="{{path('produit_add',{'id': prototype_produit.id})}}" class="btn btn-success float-right">
+                        <i class="fas fa-shopping-cart mr-1"></i>
+                        Ajouter 10 articles au panier</a>
 							{#<a href="{{ path('app_panier_new') }}"> ???Aggiungi al paniere</a>#}
 						{% endif %}
 						{% if  app.user == null %}
