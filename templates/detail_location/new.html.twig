@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New DetailProduitLocation{% endblock %}
+
+{% block body %}
+    <h1>Create new DetailProduitLocation</h1>
+
+    {{ include('detail_location/_form.html.twig') }}
+
+    <a href="{{ path('app_detail_location_index') }}">back to list</a>
+{% endblock %}

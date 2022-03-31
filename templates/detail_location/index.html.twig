@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DetailProduitLocation index{% endblock %}
+
+{% block body %}
+    <h1>DetailProduitLocation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date_debut</th>
+                <th>Date_fin_teorique</th>
+                <th>QuantiteTotal</th>
+                <th>QuantiteResteRendre</th>
+                <th>Montant</th>
+                <th>Montant_par_unite</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for detail_produit_location in detail_produit_locations %}
+            <tr>
+                <td>{{ detail_produit_location.id }}</td>
+                <td>{{ detail_produit_location.DateDebut ? detail_produit_location.DateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ detail_produit_location.DateFinTeorique ? detail_produit_location.DateFinTeorique|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ detail_produit_location.QuantiteTotal }}</td>
+                <td>{{ detail_produit_location.QuantiteResteRendre }}</td>
+                <td>{{ detail_produit_location.Montant }}</td>
+                <td>{{ detail_produit_location.MontantParUnite }}</td>
+                <td>
+                    <a href="{{ path('app_detail_location_show', {'id': detail_produit_location.id}) }}">show</a>
+                    <a href="{{ path('app_detail_location_edit', {'id': detail_produit_location.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_detail_location_new') }}">Create new</a>
+{% endblock %}

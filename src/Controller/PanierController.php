@@ -23,7 +23,7 @@ class PanierController extends AbstractController
         ]);
     }*/
 
-    //il paniere é registrato con 3 actions:
+    //il paniere é registrato con 3 actions, NON CREO UN DetailProduitLocation!:
     //sono su lista produtti e clicco sul prodotto-> rediretto a panier 'index'
     //riclicco sullo stesso prodotto -> 'add'
     //fleggo affianco -> 'remove' all

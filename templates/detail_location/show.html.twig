@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DetailProduitLocation{% endblock %}
+
+{% block body %}
+    <h1>DetailProduitLocation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ detail_produit_location.id }}</td>
+            </tr>
+            <tr>
+                <th>Date_debut</th>
+                <td>{{ detail_produit_location.DateDebut ? detail_produit_location.DateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_fin_teorique</th>
+                <td>{{ detail_produit_location.DateFinTeorique ? detail_produit_location.DateFinTeorique|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>QuantiteTotal</th>
+                <td>{{ detail_produit_location.QuantiteTotal }}</td>
+            </tr>
+            <tr>
+                <th>QuantiteResteRendre</th>
+                <td>{{ detail_produit_location.QuantiteResteRendre }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ detail_produit_location.Montant }}</td>
+            </tr>
+            <tr>
+                <th>Montant_par_unite</th>
+                <td>{{ detail_produit_location.MontantParUnite }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_detail_location_index') }}">back to list</a>
+
+    <a href="{{ path('app_detail_location_edit', {'id': detail_produit_location.id}) }}">edit</a>
+
+    {{ include('detail_location/_delete_form.html.twig') }}
+{% endblock %}
