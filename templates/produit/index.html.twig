@@ -7,12 +7,12 @@
 	<h1>Produit index lista</h1>
 
 	{% if app.user %}
-		<div
-			class="mb-3">
-			{# app.user.email o app.user.nom -> dipende da quello che vuoi visualizzare#}
-			You are logged in as
-			{{ app.user.nom }},
+		<div class="mb-3">
+			{# app.user.email o app.user.nom -> dipende da quello che vuoi visualizzare #}
+			You are logged in as {{ app.user.nom }},
 			<a href="{{ path('app_logout') }}">Logout</a>
+			<br>
+			<a href="{{ path('app_panier_index') }}"> Voir votre Panier</a>
 		</div><br>
 	{% endif %}
 
@@ -48,11 +48,10 @@
 						<a href="{{ path('app_produit_show', {'id': prototype_produit.id}) }}">show</a>
 						
 						{% if app.user %}
-						 <a href="{{path('produit_add',{'id': prototype_produit.id})}}" class="btn btn-success float-right">
-                        <i class="fas fa-shopping-cart mr-1"></i>
-                        Ajouter 10 articles au panier</a>
-							{#<a href="{{ path('app_panier_new') }}"> ???Aggiungi al paniere</a>#}
+						<a href="{{ path('produit_add',{'id': prototype_produit.id}) }}" class="btn btn-success float-right">
+                        <i class="fas fa-shopping-cart mr-1"></i>Ajouter 10 articles au panier</a>
 						{% endif %}
+
 						{% if  app.user == null %}
 							<div class="mb-3">
 								<a href="{{ path('app_login') }}">Login for buy!</a>

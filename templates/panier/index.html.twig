@@ -8,6 +8,18 @@
 		<h1>Votre panier</h1>
 	</div>
 	{#{% if items.length >0 %}#}
+	<br>
+	{#{{ dump(Restos) }}#}
+	
+	<form action="{{ path('panier_create') }}" method="POST">
+		<label>Sélectionnez pour lequel de vos restaurants vous commandez:</label>
+		<select name="id_resto">
+			{% for Resto in Restos %}
+				<option value="{{Resto.id}}">{{Resto.Nom}}</option>
+			{% endfor %}
+		</select>
+		
+	<br>
 	<table class="table">
 		<thead>
 			<tr>
@@ -19,16 +31,31 @@
 			</tr>
 		</thead>
 		<tbody>
+
+			{#{{ dump(items) }}#}
+			{{ dump(panier) }}
+
 			{% for prodotto in items %}
 				<tr>
 					<td>{{ prodotto.product.NomProduit }}</td>
-					<td>{{ prodotto.product.PrixLocationUnitaire }} €</td>
-					<td>{{ prodotto.quantity }}</td>
-					<td>{{  prodotto.product.PrixLocationUnitaire * prodotto.quantity }}
+					<td>{{ prodotto.product.PrixLocationUnitaire }}
+						€</td>
+					<td id="quantita" value="{{ prodotto.quantity }}">{{ prodotto.quantity }}</td>
+					<td id="prezzoProdotti">{{  prodotto.product.PrixLocationUnitaire * prodotto.quantity }}
 					</td>
+					{#<td>
+						<button style="background-color: green; border-radius: 20%;" onclick="add()">aggiungi 10 articoli</button>
+						<button style="background-color: red; border-radius: 20%;" onclick="remove()">cancella 10 articoli</button>
+					</td>#}
 					<td>
+						{#per non usare Json, resto sempre nello stesso Controller #}
+						{#purtroppo il JS non mi permetteva di memorizzare la quantità cambiata, MA L'ACTION SI, POICHE' RICARICA IL panier di sessione#}
+							<a href="{{path('produit_add',{'id': prodotto.product.id})}}" class="btn btn-success float-right"> <i class="fas fa-shopping-cart mr-1"></i>Ajouter 10 articles au panier</a>
+
 						<a href="{{ path('produit_remove', {'id': prodotto.product.id})}}">
-							<i class="fas fa-trash"></i>cancella 10 articoli</a>
+							<i class="fas fa-trash"></i>Enlever 10 articles du panier</a><hr>
+						<a href="{{ path('produit_removeAll', {'id': prodotto.product.id})}}">
+							<i class="fas fa-trash"></i>Enlever tous ces articles du panier</a>
 					</td>
 				</tr>
 			{% endfor %}
@@ -38,14 +65,50 @@
 			<tr>
 				<td>Totale:</td>
 				<td>{{ totale }} €</td>
-				<td></td>
+				{#<td><a href="{{ path('panier_create') }}"><i class="fas fa-shopping-cart mr-1"></i>Confirmer la comande</a></td>#}
 			</tr>
 		</tfoot>
 
 	</table>
+	<div class="btn btn-success float-right">
+		<i class="fas fa-shopping-cart mr-1"></i><input type="submit" value="Confirmer la comande">
+	</div>
+	</form>
+	<div>
+		<a href="{{ path('app_produit_index') }}">back to list</a>
+	</div>
 
-{#{% else %}
-	<p>Surprise, c'est vide !</p>
-{% endif %}#}
+	{#{% else %}
+		<p>Surprise, c'est vide !</p>
+	{% endif %}#}
+
+	<script>
+		var quantita = document.getElementById('quantita');
+		var valore = parseFloat(quantita.getAttribute('value'));
+		var prezzo = document.getElementById('prezzoProdotti');
+		function add() {
+		quantita.innerHTML = valore + 10;
+		valore = valore + 10;
+		quantita.setAttribute('value', valore);
+		prezzo.innerText = valore * 0.1 + ' €';
+		}
+
+		function remove() {
+		if (this.valore >= 10) {
+		quantita.innerHTML = valore - 10;
+		valore = valore - 10;
+		if (valore == 0) { // chiamo la funz remuve del controller che mi toglie la linea
+		alert('l\'articolo non esiste più');
+		}
+		quantita.setAttribute('value', valore);
+		prezzo.innerText = valore * 0.1;
+
+		} else { // chiamo la funz remuve del controller che mi toglie la linea
+		alert('l\'articolo non esiste più');
+		}
+		}
+	</script>
+
 
 {% endblock %}
+

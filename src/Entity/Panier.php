@@ -21,10 +21,10 @@ class Panier
     #[ORM\ManyToOne(targetEntity: Restaurant::class, inversedBy: 'paniers')]
     private $Restaurant;
 
-    #[ORM\OneToMany(mappedBy: 'Panier', targetEntity: DetailProduitLocation::class)]
+    #[ORM\OneToMany(mappedBy: 'Panier', targetEntity: DetailProduitLocation::class, cascade: ['persist', 'remove'])]
     private $detailProduitLocations;
 
-    #[ORM\OneToMany(mappedBy: 'Panier', targetEntity: DetailProduitRetour::class)]
+    #[ORM\OneToMany(mappedBy: 'Panier', targetEntity: DetailProduitRetour::class, cascade: ['persist', 'remove'])]
     private $detailProduitRetours;
 
     public function __construct()

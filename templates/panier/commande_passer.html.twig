@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+	<div class="bg-light p-3">
+		<h1>Votre comande</h1>
+	</div>
+
+    {{dump(commande)}}
+	{{dump(totale)}}
+
+	<div>Data di pagamento: {{ commande.DatePaiment | date('Y-m-d') }}</div>
+
+	<div>Per il ristorante: {{commande.Restaurant.Nom}}</div>
+	
+
+	{% for prodotto in commande.detailProduitLocations %}
+	<div>Prodotto: {{prodotto.PrototypeProduit.NomProduit}}</div>
+	<div>quantità: {{prodotto.QuantiteTotal}}</div>
+	<div>prezzo {{prodotto.Montant}} €</div>
+	{% endfor %}
+	<div>Totale {{totale}} €</div>
+    <div>
+		<a href="{{ path('app_produit_index') }}">back to list</a>
+	</div>
+{% endblock %}
