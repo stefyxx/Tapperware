@@ -4,6 +4,13 @@
 
 {% block body %}
     <h1>Restaurant index</h1>
+    {% if app.user %}
+		<div class="mb-3">
+			{# app.user.email o app.user.nom -> dipende da quello che vuoi visualizzare #}
+			You are logged in as {{ app.user.nom }},
+			<a href="{{ path('app_logout') }}">Logout</a>
+		</div><br>
+	{% endif %}
 
     <table class="table">
         <thead>
