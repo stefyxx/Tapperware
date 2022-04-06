@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProduitController extends AbstractController
 {
     //url: /produit e tutti gli altri url delle altre azioni iniziano cosi' /produit
-    #[Route('/produit', name: 'app_produit_index', methods: ['GET'])]
+    #[Route('/', name: 'app_produit_index', methods: ['GET'])]
     public function index(PrototypeProduitRepository $prototypeProduitRepository): Response
     {
         return $this->render('produit/index.html.twig', [

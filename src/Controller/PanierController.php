@@ -142,8 +142,8 @@ class PanierController extends AbstractController
 
         //recupera solo id_prototypeProdotto e quantita_prototypeProdotto
         $panier = $session->get('panier');
-        $total= $req->request->get('totale');
-
+        //$total= $req->request->get('totale');
+        $total=0;
         
         $comanda= new Panier();
         $em = $doctrine->getManager(); 
@@ -157,6 +157,7 @@ class PanierController extends AbstractController
             $detailProduit->setPrototypeProduit($produit);
             $montant= $quantity * $produit->getPrixLocationUnitaire();
             $detailProduit->setMontant($montant);
+            $total+=$montant;
             $detailProduit->setDateDebut(new DateTime());
             $detailProduit->setQuantiteTotal($quantity);
             $detailProduit->setQuantiteResteRendre(0);
@@ -174,7 +175,28 @@ class PanierController extends AbstractController
         return $this->render('panier/commande_passer.html.twig', $vars);
 
     }
+    //rimuove dalla sessione il paniere, 
+    //é diverso da Remove() perché questa action non lo cancella dalla DB
+    #[Route(path:'/remove/inSession', name:'panier_no_inSession')]
+    public function removeToSessionThePanier(Request $req, SessionInterface $session, ManagerRegistry $doctrine){
+        
+        $comande = $session->get('commande');
+        //dd($comande);
+        $em = $doctrine->getManager();
+        $em->persist($comande);
+        $em->flush();
 
+        $comanda= new Panier();
+
+        $panier = [];
+        $session->set('panier',$panier);
+        $session->set('commande',$comanda);
+        //return $this->redirectToRoute('app_produit_index');
+        return $this->render('panier/commande_noSession.html.twig', [
+            'panier'=>$panier,
+            'comanda' =>$comanda
+        ]);
+    }
 
     #[Route('/new', name: 'app_panier_new', methods: ['GET', 'POST'])]
     public function new(Request $request, PanierRepository $panierRepository): Response

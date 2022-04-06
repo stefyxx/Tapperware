@@ -6,8 +6,8 @@
 		<h1>Votre comande</h1>
 	</div>
 
-    {{dump(commande)}}
-	{{dump(totale)}}
+    {# {{dump(commande)}} #}
+	{# {{dump(totale)}} #}
 
 	<div>Data di pagamento: {{ commande.DatePaiment | date('Y-m-d') }}</div>
 
@@ -20,6 +20,11 @@
 	<div>prezzo {{prodotto.Montant}} €</div>
 	{% endfor %}
 	<div>Totale {{totale}} €</div>
+
+	<div>
+		<a href="{{ path('panier_no_inSession') }}">Convalider votre paiment</a>
+	</div>
+
     <div>
 		<a href="{{ path('app_produit_index') }}">back to list</a>
 	</div>
